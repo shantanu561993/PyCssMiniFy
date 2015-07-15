@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import os
+import concurrent.futures
+import requests
 
 def minify_css(file_path):
 	if type(file_path)!=str :
@@ -9,12 +12,11 @@ def minify_css(file_path):
 		
 	if os.path.isfile(file_path) and os.path.getsize(file_path)>>20 < 5:
 		
-		files={'input':open(file_path,'r')}			
-		r=requests.post("http://cssminifier.com/raw",files=files,stream=True)
+		data={'input':open(file_path,'r').read()}			
+		r=requests.post("http://cssminifier.com/raw",data=data)
 		if r.status_code == 200:
      			with open(file_path.rstrip(".css")+".min.css", 'w') as f:
-        			for chunk in r.iter_content(1024):
-            				f.write(chunk)
+            				f.write(r.text)
             	
         elif os.path.isdir(file_path):
         	for root,dirs,files in os.walk("."):
@@ -24,8 +26,12 @@ def minify_css(file_path):
 
 def minify(file_path):
 	with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
-		for root,dirs,files in os.walk(file_path):
-		    for file in files:
-		        if file.endswith(".css") and not file.endswith(".min.css"):
-		            executor.submit(minify_css,file_path)
+		if os.path.isdir(file_path):
+			for root,dirs,files in os.walk(file_path):
+			    for file_name in files:
+				if file_name.endswith(".css") and not file_name.endswith(".min.css"):
+					executor.submit(minify_css,os.path.abspath(os.path.join(root,file_name)))
+		elif os.path.isfile(file_path):
+			if file_path.endswith(".css") and not file_path.endswith(".min.css"):
+					executor.submit(minify_css,file_path)
 

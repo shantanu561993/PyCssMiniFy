@@ -4,4 +4,4 @@ __author__ = 'Shantanu Khandelwal'
 __email__ = 'shantanu561993@gmail.com'
 __version__ = '1.0'
 
-from .PyCssMinify import minify
+from .PyCssMiniFy import minify
