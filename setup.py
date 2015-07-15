@@ -1,46 +1,15 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
-
-
-with open('README.rst') as readme_file:
-    readme = readme_file.read()
-
-with open('HISTORY.rst') as history_file:
-    history = history_file.read().replace('.. :changelog:', '')
-
-requirements = [
-    # TODO: put package requirements here
-]
-
-test_requirements = [
-    # TODO: put package test requirements here
-]
-
+from distutils.core import setup
 setup(
-    name='PyCssMiniFy',
-    version='1.0',
-    description="Minifies CSS files in a directory",
-    long_description=readme + '\n\n' + history,
-    author="Shantanu Khandelwal",
-    author_email='shantanu561993@gmail.com',
-    url='https://github.com/shantanu561993/PyCssMiniFy',
-    packages=[
-        'PyCssMiniFy',
-    ],
-    package_dir={'PyCssMiniFy':
-                 'PyCssMiniFy'},
-    include_package_data=True,
-    install_requires=requirements,
-    license="BSD",
-    zip_safe=False,
-    keywords='PyCssMiniFy',
-    classifiers=[
+  name = 'PyCssMiniFy',
+  packages = ['PyCssMiniFy'], # this must be the same as the name above
+  version = '1.0',
+  description = 'A CSS minify',
+  author = 'Shantanu Khandelwal',
+  author_email = 'shantanu561993@gmail.com',
+  url = 'https://github.com/shantanu561993/PyCssMiniFy', # use the URL to the github repo
+  download_url = 'https://github.com/shantanu561993/PyCssMiniFy/tarball/1.0',
+  keywords = ['CSS', 'Css', 'css','minify','Minifier','minifier','optimise','css'], # arbitrary keywords
+  classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
@@ -52,6 +21,4 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
     ],
-    test_suite='tests',
-    tests_require=test_requirements
 )
